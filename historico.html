@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Histórico</title>
+    <script src="./js\pouchdb.js"></script>
+    <script src="./js\pouchdb.min.js"></script>
+    <link rel="stylesheet" href="./css\bootstrap.css">
+    <link rel="stylesheet" href="./css\bootstrap.min.css">
+    <nav class="navbar navbar-dark bg-primary justify-content-between">
+        <a class="navbar-brand" href="./index.html" style="color:white">Voltar</a>
+    </nav>
+</head>
+<body style="background:rgba(216, 216, 216, 0.671)">
+    <div class="conteiner card">
+        <div class="card-header text-center">
+        <span style="font-weight:bold"><img src="./icones/16/calendar-16.png">&nbsp Histórico</span>
+        </div>
+        <div class="conteiner">
+            <ol id="lista" class="list-group">
+            </ol>
+        </div>
+        </div>
+    <script>
+        var db = new PouchDB('planoteste');
+        var todos = [];
+        function preenche(){                        
+            db.allDocs({include_docs: true})
+                    .then(r => r.rows)
+                    .then(list => {
+                        todos = list;                    
+            for(var i  = 0; i <= todos.length; i++){
+                var li = document.createElement('li');
+                li.className = "list-group-item list-group-item-action";
+                li.setAttribute("data-toggle", "collapse");
+                li.setAttribute("data-target", '#col' + i);
+                li.setAttribute("aria-expanded", "false");
+                li.setAttribute("aria-controls", 'col' + i);
+                li.innerHTML = "<strong> Instituição: </strong>" + list[i].doc.inst 
+                + "</br><strong> Tema: </strong>" + list[i].doc.tema + "&nbsp<strong> Data: </strong>" + list[i].doc.datas
+                + "<div class='collapse' id='col"+i+"'> <div class='card-body'>"
+                + "<strong>Objetivos </strong>" + "<br/>" + list[i].doc.obj + "<br/>"
+                + "<strong>Etapas</strong>" + "<br/>" + list[i].doc.etapas + "<br/>"
+                + "<strong>Método</strong>" + "<br/>" + list[i].doc.metodo + "<br/>"
+                + "<strong>Avaliação</strong>" + "<br/>" + list[i].doc.ava + "<br/>"
+                + "<strong>Bibliografia</strong>" + "<br/>"+ list[i].doc.biblio + "<br/>"
+                +"<button class='btn btn-info btn-sm' onclick='editar(\""+list[i].doc._id+"\")'>Editar</button> "
+                +"<button onclick='deletar(\""+list[i].doc._id+"\")' class='btn btn-danger btn-sm'>Excluir</button>"
+                + "</div></div>";
+                document.getElementById('lista').appendChild(li);
+            }
+        }).catch(console.error);
+        }
+        function editar(val){
+            sessionStorage.setItem('dados', val);    
+            window.location.href = ("./alterar.html");
+        }
+        function deletar(val){
+            db.get(val).then(function(valor){                                                       
+                return db.remove(valor) &&  teste();                                       
+                });
+        }
+        function teste(val){
+            alert('Plano excluído com sucesso!');
+            window.location.href = ("./historico.html");
+        }
+    preenche();
+    </script>    
+</body>
+<script src="./js\jquery.js"></script>
+<script src="./js\popper.js"></script>
+<script src="./js\bootstrap.js"></script>
+<script src="./js\bootstrap.min.js"></script>
+</html>
