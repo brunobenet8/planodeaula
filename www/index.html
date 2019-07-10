@@ -57,10 +57,10 @@
         ///Aqui é criado a stringa data que esta na variavel monta
         var data = new Date();
           function dia(){
-            if(data.getDay() < 10){
+            if(parseInt(data.getDate()) < 10){
               return '0' + data.getDate();
             }else{
-              return data.getDay();
+              return data.getDate();
             }
           }
           function mes(){ 
