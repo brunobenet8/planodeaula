@@ -57,18 +57,11 @@
         ///Aqui é criado a stringa data que esta na variavel monta
         var data = new Date();
           function dia(){
-            if(parseInt(data.getDate()) < 10){
-              return '0' + data.getDate();
-            }else{
-              return data.getDate();
-            }
+           return ((parseInt(data.getDate) < 10) ? '0' + data.getDate() : data.getDate());
           }
-          function mes(){ 
-            if(data.getUTCMonth() + 1 < 10){
-              return '0' + (data.getUTCMonth() + 1);
-            }else{
-              return data.getUTCMonth() + 1;
-            }}
+          function mes(){
+           return (data.getUTCMonth() + 1 < 10 ? '0' + (data.getUTCMonth() + 1) : data.getUTCMonth() + 1);   
+           }
       var ano = data.getUTCFullYear();
       var monta =  "" + dia() + "/" + mes() + "/" + ano;
       ///
