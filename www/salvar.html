@@ -42,8 +42,12 @@
     });
 
     function salvar(){
+        try{
         var blob = new Blob([document.getElementById('display').value], {type: 'text/plain. charset=utf-8'});
         saveAs(blob, 'planosdeaula.txt');
+        }catch(err){
+            alert('Erro: ' + err);
+        }
     }
 </script>
 <script src="./js\jquery.js"></script>
