@@ -59,12 +59,13 @@
         }
         function deletar(val){
             db.get(val).then(function(valor){                                                       
-                return db.remove(valor) &&  teste();                                       
+                return db.remove(valor);                                       
+                }).then(function(){
+                    alert('Plano excluído com sucesso!');                    
+                    window.location.href = ("./historico.html");
+                }).catch(function(err){
+                    alert(err);
                 });
-        }
-        function teste(val){
-            alert('Plano excluído com sucesso!');
-            window.location.href = ("./historico.html");
         }
     preenche();
     </script>    
