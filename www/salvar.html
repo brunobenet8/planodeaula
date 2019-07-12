@@ -20,7 +20,7 @@
             <span style="font-weight:bold"><img src="./icones/16/download-16.png">&nbsp Salvar</span>
         </div>
         <textarea id="display" rows="15"></textarea>
-        <button class="btn btn-primary" onclick="salvar()">Salvar</button>
+        <button class="btn btn-primary" onclick="salvar()">Copiar Texto</button>
     </div>
 </body>
 <script>
@@ -42,13 +42,10 @@
     });
 
     function salvar(){
-        try{
-        var blob = new Blob([document.getElementById('display').value], {type: 'text/plain. charset=utf-8'});
-        saveAs(blob, 'planosdeaula.txt');
-        alert('Salvo com sucesso!');
-        }catch(err){
-            alert('Erro: ' + err);
-        }
+        var copiarTexto = document.getElementById('display');
+        copiarTexto.select();
+        document.execCommand('copy');
+        alert('Texto copiado!');
     }
 </script>
 <script src="./js\jquery.js"></script>
